@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIXL — Pixel Editor</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>PIXL</h1>
+  <span>— pixel manipulation studio</span>
+</header>
+
+<div class="upload-zone" id="uploadZone">
+  <div class="drop-box" id="dropBox">
+    <span class="icon">⬡</span>
+    <p>Drop an image here<br><strong>or click to browse</strong><br><br>PNG · JPG · WEBP · GIF</p>
+  </div>
+  <input type="file" id="fileInput" accept="image/*">
+</div>
+
+<div class="main">
+  <aside class="sidebar">
+
+    <div class="section">
+      <div class="section-label">Adjustments</div>
+      <div class="slider-group">
+        <div class="slider-row">
+          <div class="slider-header"><label>Brightness</label><span class="val" id="brightnessVal">0</span></div>
+          <input type="range" id="brightness" min="-100" max="100" value="0">
+        </div>
+        <div class="slider-row">
+          <div class="slider-header"><label>Contrast</label><span class="val" id="contrastVal">0</span></div>
+          <input type="range" id="contrast" min="-100" max="100" value="0">
+        </div>
+        <div class="slider-row">
+          <div class="slider-header"><label>Saturation</label><span class="val" id="saturationVal">0</span></div>
+          <input type="range" id="saturation" min="-100" max="100" value="0">
+        </div>
+        <div class="slider-row">
+          <div class="slider-header"><label>Exposure</label><span class="val" id="exposureVal">0</span></div>
+          <input type="range" id="exposure" min="-100" max="100" value="0">
+        </div>
+        <div class="slider-row">
+          <div class="slider-header"><label>Gamma</label><span class="val" id="gammaVal">1.0</span></div>
+          <input type="range" id="gamma" min="10" max="300" value="100">
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">RGB Channels</div>
+      <div class="slider-group">
+        <div class="slider-row">
+          <div class="slider-header"><label>Red</label><span class="val" id="redVal">0</span></div>
+          <input type="range" class="red" id="red" min="-255" max="255" value="0">
+        </div>
+        <div class="slider-row">
+          <div class="slider-header"><label>Green</label><span class="val" id="greenVal">0</span></div>
+          <input type="range" class="green" id="green" min="-255" max="255" value="0">
+        </div>
+        <div class="slider-row">
+          <div class="slider-header"><label>Blue</label><span class="val" id="blueVal">0</span></div>
+          <input type="range" class="blue" id="blue" min="-255" max="255" value="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Filters</div>
+      <div class="btn-row">
+        <button class="btn" id="btnGrayscale" onclick="toggleFilter('grayscale')">Grayscale</button>
+        <button class="btn" id="btnSepia" onclick="toggleFilter('sepia')">Sepia</button>
+        <button class="btn" id="btnInvert" onclick="toggleFilter('invert')">Invert</button>
+        <button class="btn" id="btnPosterize" onclick="toggleFilter('posterize')">Poster</button>
+        <button class="btn" id="btnPixelate" onclick="toggleFilter('pixelate')">Pixelate</button>
+        <button class="btn" id="btnVignette" onclick="toggleFilter('vignette')">Vignette</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Actions</div>
+      <div class="btn-row">
+        <button class="btn" onclick="rotateImage(-90)">↺ 90°</button>
+        <button class="btn" onclick="rotateImage(90)">↻ 90°</button>
+        <button class="btn" onclick="flipImage('h')">↔ Flip H</button>
+        <button class="btn" onclick="flipImage('v')">↕ Flip V</button>
+        <button class="btn danger" onclick="resetAll()">Reset</button>
+      </div>
+      <button class="btn dl" onclick="downloadImage()">⬇ Export PNG</button>
+    </div>
+
+    <div class="pixel-info">
+      <div class="section-label">Pixel Inspector</div>
+      <div class="swatch" id="swatch"></div>
+      <div id="pixelData">Hover over image to inspect pixels</div>
+    </div>
+
+  </aside>
+
+  <div class="canvas-wrap">
+    <canvas id="mainCanvas"></canvas>
+    <canvas id="sourceCanvas"></canvas>
+    <canvas id="tempCanvas"></canvas>
+
+    <div class="coords" id="coords">—</div>
+
+    <div class="zoom-controls">
+      <button class="zoom-btn" onclick="zoom(-0.1)">−</button>
+      <button class="zoom-btn" onclick="zoom(0.1)">+</button>
+      <button class="zoom-btn" onclick="resetZoom()" style="width:auto;padding:0 8px;font-size:0.6rem">FIT</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
